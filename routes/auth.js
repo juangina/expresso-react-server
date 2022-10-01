@@ -36,13 +36,13 @@ router.get('/callback', (req, res, next) => {
             picture: "https://mdc.theaccidentallifestyle.net/images/portfolioLogo04.png",
         };
         req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
-        return res.redirect('/');
+        return res.redirect('https://expresso.theaccidentallifestyle.net');
     })(req, res, next);
 });
 
 router.get('/logout', (req, res) => {
     req.session = null;
-    const homeURL = encodeURIComponent('http://localhost:3000/');
+    const homeURL = encodeURIComponent('https://expresso.theaccidentallifestyle.net/');
     res.redirect(
         `https://${process.env.AUTH0_DOMAIN}/v2/logout?returnTo=${homeURL}&client_id=${process.env.AUTH0_CLIENT_ID}`
     );

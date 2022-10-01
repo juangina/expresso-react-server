@@ -38,7 +38,7 @@ router.get('/callback',
                 picture: "https://mdc.theaccidentallifestyle.net/images/portfolioLogo04.png",
             };
             req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
-            return res.redirect('/');
+            return res.redirect('/current-session');
         })(req, res, next);
 });
 

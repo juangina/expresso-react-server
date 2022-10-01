@@ -59,6 +59,7 @@ app.use(
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
   })
 );
+app.set("trust proxy", 1); // trust first proxy
 
 const csurf = require('csurf');
 app.use(csurf());

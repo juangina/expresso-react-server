@@ -26,7 +26,7 @@ router.get('/login',
 router.get('/callback', 
     (req, res, next) => {
         passport.authenticate('auth0', (err, user) => {
-            console.log("User Object fromm Auth0:", user);
+            //console.log("User Object fromm Auth0:", user);
             if (err) {
                 return next(err);
             }
@@ -38,7 +38,7 @@ router.get('/callback',
                 picture: "https://mdc.theaccidentallifestyle.net/images/portfolioLogo04.png",
             };
             req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
-            return res.redirect('/current-session');
+            return res.redirect('/');
         })(req, res, next);
 });
 

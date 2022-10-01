@@ -21,10 +21,10 @@ app.use(logger('dev'));
 
 //Used to help connections between two different servers
 const cors = require("cors");
-app.use(cors({
-  origin: "https://expresso.theaccidentallifestyle.net",
-  credentials: true
-}));
+// app.use(cors({
+//   origin: "https://expresso.theaccidentallifestyle.net",
+//   credentials: true
+// }));
 
 //Express serial data parser:  Extract object from data series
 //During a local file/file cache transfer
@@ -62,7 +62,7 @@ app.use(
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
   })
 );
-app.set("trust proxy", 1); // trust first proxy
+// app.set("trust proxy", 1); // trust first proxy
 
 const csurf = require('csurf');
 app.use(csurf());

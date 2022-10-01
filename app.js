@@ -21,7 +21,10 @@ app.use(logger('dev'));
 
 //Used to help connections between two different servers
 const cors = require("cors");
-app.use(cors());
+app.use(cors({
+  origin: "https://expresso.theaccidentallifestyle.net",
+  credentials: true
+}));
 
 //Express serial data parser:  Extract object from data series
 //During a local file/file cache transfer

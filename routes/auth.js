@@ -8,7 +8,8 @@ const router = express.Router();
 
 //AuthO authorization
 //This is more like registration and login credentials database.
-router.get('/login', (req, res, next) => {
+router.get('/login', 
+    (req, res, next) => {
         //console.log('router.get.login01');
         next();
         
@@ -22,22 +23,23 @@ router.get('/login', (req, res, next) => {
     }
 );
 
-router.get('/callback', (req, res, next) => {
-    passport.authenticate('auth0', (err, user) => {
-        console.log("User Object fromm Auth0:", user);
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.redirect('/login');
-        }
-        const userReturnObject = {
-            nickname: user.nickname,
-            picture: "https://mdc.theaccidentallifestyle.net/images/portfolioLogo04.png",
-        };
-        req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
-        return res.redirect('https://expresso.theaccidentallifestyle.net');
-    })(req, res, next);
+router.get('/callback', 
+    (req, res, next) => {
+        passport.authenticate('auth0', (err, user) => {
+            console.log("User Object fromm Auth0:", user);
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.redirect('/login');
+            }
+            const userReturnObject = {
+                nickname: user.nickname,
+                picture: "https://mdc.theaccidentallifestyle.net/images/portfolioLogo04.png",
+            };
+            req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
+            return res.redirect('/');
+        })(req, res, next);
 });
 
 router.get('/logout', (req, res) => {

@@ -24,7 +24,7 @@ router.get('/login',
 );
 
 router.get('/callback', 
-    (req, res, next) => {
+    (req, res, next) => {  
         passport.authenticate('auth0', (err, user) => {
             //console.log("User Object fromm Auth0:", user);
             if (err) {
@@ -40,32 +40,46 @@ router.get('/callback',
             req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
             return res.redirect('/');
         })(req, res, next);
-});
+        //In this example, passport.authenticate is returning a route function, hence the (req, res);
+    
+    }
+);
 
-router.get('/logout', (req, res) => {
-    req.session = null;
-    const homeURL = encodeURIComponent('https://expresso.theaccidentallifestyle.net/');
-    res.redirect(
-        `https://${process.env.AUTH0_DOMAIN}/v2/logout?returnTo=${homeURL}&client_id=${process.env.AUTH0_CLIENT_ID}`
-    );
-});
+router.get('/logout', 
+    (req, res) => {
+        req.session = null;
+        const homeURL = encodeURIComponent('https://expresso.theaccidentallifestyle.net/');
+        res.redirect(
+            `https://${process.env.AUTH0_DOMAIN}/v2/logout?returnTo=${homeURL}&client_id=${process.env.AUTH0_CLIENT_ID}`
+        );
+    }
+);
 
 //JWT Authorization
 const jwtRequired = passport.authenticate('jwt', { session: false });
 
-router.get('/private-route', jwtRequired, (req, res) => {
-    return res.json({message: 'This is private data from a private route'});
-});
+router.get('/private-route', 
+    jwtRequired, 
+    (req, res) => {
+        return res.json({message: 'This is private data from a private route'});
+    }
+);
 
-router.get('/current-session', (req, res) => {
-    //console.log("authenticating user");
-    passport.authenticate('jwt', { session: false }, (err, user) => {
-        if (err || !user) {
-            res.send(false);
-        } else {
-            res.send(user);
-        }
-    })(req, res);
-});
+router.get('/current-session', 
+    (req, res) => {
+        //console.log("authenticating user");
+        passport.authenticate('jwt', { session: false }, 
+            (err, user) => {
+                if (err || !user) {
+                    res.send(false);
+                } else {
+                    res.send(user);
+                }
+            }
+        )(req, res);
+        //If you have a function that returns a function, you chain call that function directly.
+        //In this example, passport.authenticate is returning a route function, hence the (req, res);
+    }
+);
 
 module.exports = router;

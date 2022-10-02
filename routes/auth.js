@@ -40,7 +40,7 @@ router.get('/callback',
                 picture: "https://mdc.theaccidentallifestyle.net/images/portfolioLogo04.png",
             };
             req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
-            // return res.redirect('/');
+            console.log(req.session.jwt);
             res.redirect('https://expresso.theaccidentallifestyle.net');
         })(req, res, next);
         //In this example, passport.authenticate is returning a route function, hence the (req, res);
@@ -50,6 +50,7 @@ router.get('/callback',
 //This is what passport normally does.  It redirects to Auth0 when called
 router.get('/logout', 
     (req, res) => {
+        console.log(req.session.jwt);
         req.session = null;
         const homeURL = encodeURIComponent('https://expresso.theaccidentallifestyle.net/');
         res.redirect(
@@ -64,12 +65,14 @@ const jwtRequired = passport.authenticate('jwt', { session: false });
 router.get('/private-route', 
     jwtRequired, 
     (req, res) => {
+        console.log(req.session.jwt);
         return res.json({message: 'This is private data from a private route'});
     }
 );
 
 router.get('/current-session', 
     (req, res) => {
+        console.log(req.session.jwt);
         //console.log("authenticating user");
         passport.authenticate('jwt', { session: false }, 
             (err, user) => {

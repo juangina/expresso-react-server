@@ -75,7 +75,9 @@ const localStrategy = new LocalStrategy(
 
 
 //Is this just adding more modules to the passport functional library?
-passport.use(auth0Strategy);
+//The string prefix to "Strategy" is used in the passport call
+//For example "auth0, jwt, local, etc."
+passport.use(auth0Strategy);  
 passport.use(jwtStrategy);
 passport.use(localStrategy);
 ////////////////////////////////////////////

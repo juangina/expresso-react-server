@@ -10,26 +10,26 @@ dotenv.config({path: path.resolve(__dirname, '.env')});
 var express = require('express');
 var app = express();
 // Express JSON parser: 
-app.use(express.json());
+// app.use(express.json());
 //Express request body parser: Extracts objects from data series
 //During a get and post http requests
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 
 //Debug logger:  Outputs data related to the app session
-var logger = require('morgan');
-app.use(logger('dev'));
+// var logger = require('morgan');
+// app.use(logger('dev'));
 
 //Used to help connections between two different servers
-const cors = require("cors");
-app.use(cors({
-  origin: "https://expresso.theaccidentallifestyle.net",
-  credentials: true
-}));
+// const cors = require("cors");
+// app.use(cors({
+//   origin: "https://expresso.theaccidentallifestyle.net",
+//   credentials: true
+// }));
 
 //Express serial data parser:  Extract object from data series
 //During a local file/file cache transfer
-var cookieParser = require('cookie-parser');
-app.use(cookieParser());
+// var cookieParser = require('cookie-parser');
+// app.use(cookieParser());
 
 /* Set Security Configs */
 const helmet = require('helmet');
@@ -78,27 +78,27 @@ app.use(limiter);
 //Session-persisted message middleware for the {% message %} tag in ejs
 //Capture the message from a previous endpoint for
 //display in the next endpoint res.send() or res.redirect()
-app.use(function(req, res, next){
-  //Save the messages
-  var err = req.session.error;
-  var msg = req.session.success;
-  //Clear the old message que
-  delete req.session.error;
-  delete req.session.success;
-  //Clear the current message bay
-  res.locals.message = '';
-  //Update with new messages
-  if (err) res.locals.message = '<p class="msg error">' + err + '</p>';
-  if (msg) res.locals.message = '<p class="msg success">' + msg + '</p>';
-  // console.log("completing message transfer");
-  next();
-});
+// app.use(function(req, res, next){
+//   //Save the messages
+//   var err = req.session.error;
+//   var msg = req.session.success;
+//   //Clear the old message que
+//   delete req.session.error;
+//   delete req.session.success;
+//   //Clear the current message bay
+//   res.locals.message = '';
+//   //Update with new messages
+//   if (err) res.locals.message = '<p class="msg error">' + err + '</p>';
+//   if (msg) res.locals.message = '<p class="msg success">' + msg + '</p>';
+//   // console.log("completing message transfer");
+//   next();
+// });
 
-app.get('*', function(req, res, next){
-  res.locals.user = req.user || null;
-  //console.log('res.locals.user:', res.locals.user);
-  next();
-})
+// app.get('*', function(req, res, next){
+//   res.locals.user = req.user || null;
+//   //console.log('res.locals.user:', res.locals.user);
+//   next();
+// })
 
 //Passport Config
 const passport = require('./middlewares/passport');
@@ -110,9 +110,9 @@ const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
 //This is a public route for non-authenitcated request objects
-var {indexRouter, registrationRouter, loginRouter, contactRouter} = require('./routes/_public');
+// var {indexRouter, registrationRouter, loginRouter, contactRouter} = require('./routes/_public');
 //This is a private route for authenticated request objects
-var {dashboardRouter, triviaRouter, productsRouter, debugRouter, logoutRouter} = require('./routes/_private');
+// var {dashboardRouter, triviaRouter, productsRouter, debugRouter, logoutRouter} = require('./routes/_private');
 //These are the public route paths for non-authenticated request objects
 // app.use('/', indexRouter);
 // app.use('/registration', registrationRouter);

@@ -20,7 +20,8 @@ router.get('/login',
     (req, res) => {
         //console.log('router.get.login03');
         // res.redirect('/');
-        return res.json({message: 'Passport did not complete a callback'});
+        // return res.json({message: 'Passport did not complete a callback'});
+        res.redirect()
     }
 );
 
@@ -40,7 +41,7 @@ router.get('/callback',
             };
             req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
             // return res.redirect('/');
-            return res.json({message: 'User has been authenticated'});
+            res.send(user);
         })(req, res, next);
         //In this example, passport.authenticate is returning a route function, hence the (req, res);
     

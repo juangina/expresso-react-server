@@ -21,7 +21,7 @@ router.get('/login',
         //console.log('router.get.login03');
         // res.redirect('/');
         // return res.json({message: 'Passport did not complete a callback'});
-        res.redirect()
+        res.redirect('https://expresso.theaccidentallifestyle.net');
     }
 );
 
@@ -41,13 +41,13 @@ router.get('/callback',
             };
             req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
             // return res.redirect('/');
-            res.send(user);
+            res.redirect('https://expresso.theaccidentallifestyle.net');
         })(req, res, next);
         //In this example, passport.authenticate is returning a route function, hence the (req, res);
     
     }
 );
-
+//This is what passport normally does.  It redirects to Auth0 when called
 router.get('/logout', 
     (req, res) => {
         req.session = null;
@@ -73,6 +73,7 @@ router.get('/current-session',
         //console.log("authenticating user");
         passport.authenticate('jwt', { session: false }, 
             (err, user) => {
+                console.log(user);
                 if (err || !user) {
                     res.send(false);
                 } else {

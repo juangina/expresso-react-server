@@ -68,12 +68,10 @@ router.get('/private-route',
     }
 );
 
-router.get('/current-session', 
-    (req, res) => {
+router.get('/current-session', (req, res) => {
         console.log('/current-session req.session.jwt:', req.session.jwt);
         console.log("authenticating user");
-        passport.authenticate('jwt', { session: false }, 
-            (err, user) => {
+        passport.authenticate('jwt', { session: false }, (err, user) => {
                 console.log('/current-session user:', user);
                 if (err || !user) {
                     res.send(false);

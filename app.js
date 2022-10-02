@@ -9,6 +9,9 @@ dotenv.config({path: path.resolve(__dirname, '.env')});
 //Create the main application server
 var express = require('express');
 var app = express();
+
+//Tell express where to serve static files
+app.use(express.static(path.join(__dirname, 'express_react_client')));
 // Express JSON parser: 
 // app.use(express.json());
 //Express request body parser: Extracts objects from data series
@@ -105,6 +108,10 @@ const passport = require('./middlewares/passport');
 app.use(passport.initialize());
 // app.use(passport.session());
 
+//If the request is for a static file, then serve React Application
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'express_react_client', 'index.html'));
+})
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);

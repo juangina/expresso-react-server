@@ -10,7 +10,7 @@ const router = express.Router();
 //This is more like registration and login credentials database.
 router.get('/login', 
     (req, res, next) => {
-        //console.log('router.get.login01');
+        console.log('router.get.login01');
         next();
         
     },
@@ -18,9 +18,7 @@ router.get('/login',
         scope: 'openid email profile',
     }),
     (req, res) => {
-        //console.log('router.get.login03');
-        // res.redirect('/');
-        // return res.json({message: 'Passport did not complete a callback'});
+        console.log('router.get.login03');
         res.redirect('https://expresso.theaccidentallifestyle.net');
     }
 );
@@ -28,7 +26,7 @@ router.get('/login',
 router.get('/callback', 
     (req, res, next) => {  
         passport.authenticate('auth0', (err, user) => {
-            //console.log("User Object fromm Auth0:", user);
+            console.log("User Object fromm Auth0:", user);
             if (err) {
                 return next(err);
             }
@@ -40,7 +38,7 @@ router.get('/callback',
                 picture: "https://mdc.theaccidentallifestyle.net/images/portfolioLogo04.png",
             };
             req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
-            console.log(req.session.jwt);
+            console.log('/callback req.session.jwt:', req.session.jwt);
             res.redirect('https://expresso.theaccidentallifestyle.net');
         })(req, res, next);
         //In this example, passport.authenticate is returning a route function, hence the (req, res);
@@ -50,7 +48,7 @@ router.get('/callback',
 //This is what passport normally does.  It redirects to Auth0 when called
 router.get('/logout', 
     (req, res) => {
-        console.log(req.session.jwt);
+        console.log('/logout req.session.jwt:', req.session.jwt);
         req.session = null;
         const homeURL = encodeURIComponent('https://expresso.theaccidentallifestyle.net/');
         res.redirect(
@@ -65,18 +63,18 @@ const jwtRequired = passport.authenticate('jwt', { session: false });
 router.get('/private-route', 
     jwtRequired, 
     (req, res) => {
-        console.log(req.session.jwt);
+        console.log('/private-route req.session.jwt:', req.session.jwt);
         return res.json({message: 'This is private data from a private route'});
     }
 );
 
 router.get('/current-session', 
     (req, res) => {
-        console.log(req.session.jwt);
-        //console.log("authenticating user");
+        console.log('/current-session req.session.jwt:', req.session.jwt);
+        console.log("authenticating user");
         passport.authenticate('jwt', { session: false }, 
             (err, user) => {
-                console.log(user);
+                console.log('/current-session user:', user);
                 if (err || !user) {
                     res.send(false);
                 } else {

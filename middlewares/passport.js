@@ -1,14 +1,10 @@
 // passport.js
 console.log('passport.js');
 
-var reguser = require('../models/User');
-const bcrypt = require('bcryptjs');
-
 const passport = require('passport');
 
 const Auth0Strategy = require('passport-auth0');
 const JwtStrategy = require('passport-jwt').Strategy;
-const LocalStrategy = require('passport-local').Strategy;
 
 //Since User Model is a class, it is "recreated" from the import Object
 var userProfile = reguser.regUser;

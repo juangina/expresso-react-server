@@ -11,7 +11,7 @@ var express = require('express');
 var app = express();
 
 //Tell express where to serve static files
-app.use(express.static(path.join(__dirname, 'express_react_client')));
+app.use(express.static(path.join(__dirname, 'expresso_react_client')));
 // Express JSON parser: 
 // app.use(express.json());
 //Express request body parser: Extracts objects from data series
@@ -110,7 +110,7 @@ app.use(passport.initialize());
 
 //If the request is for a static file, then serve React Application
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'express_react_client', 'index.html'));
+  res.sendFile(path.join(__dirname, 'expresso_react_client', 'index.html'));
 })
 
 const authRoutes = require('./routes/auth');

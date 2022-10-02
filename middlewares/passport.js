@@ -2,15 +2,8 @@
 console.log('passport.js');
 
 const passport = require('passport');
-
 const Auth0Strategy = require('passport-auth0');
 const JwtStrategy = require('passport-jwt').Strategy;
-
-//Since User Model is a class, it is "recreated" from the import Object
-var userProfile = reguser.regUser;
-//Once it has been recreated, an instance of this class is generated
-//var User = new userProfile();
-
 const auth0Strategy = new Auth0Strategy(
     {
         domain: process.env.AUTH0_DOMAIN,

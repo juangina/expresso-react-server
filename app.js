@@ -12,6 +12,7 @@ var app = express();
 
 //Tell express where to serve static files
 app.use(express.static(path.join(__dirname, 'expresso_react_client')));
+
 // Express JSON parser: 
 // app.use(express.json());
 //Express request body parser: Extracts objects from data series
@@ -19,8 +20,8 @@ app.use(express.static(path.join(__dirname, 'expresso_react_client')));
 // app.use(express.urlencoded({ extended: false }));
 
 //Debug logger:  Outputs data related to the app session
-// var logger = require('morgan');
-// app.use(logger('dev'));
+var logger = require('morgan');
+app.use(logger('dev'));
 
 //Used to help connections between two different servers
 // const cors = require("cors");

@@ -23,7 +23,7 @@ const jwtStrategy = new JwtStrategy(
     },
     (payload, done) => {
         // TODO: add additional jwt token verification
-        console.log('jwtStrategy payload:', payload);
+        //console.log('jwtStrategy payload:', payload);
         return done(null, payload);
     }
 );

@@ -1,5 +1,5 @@
 // passport.js
-console.log('passport.js');
+console.log('loading passport.js');
 
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
@@ -35,3 +35,4 @@ passport.use(auth0Strategy);
 passport.use(jwtStrategy);
 
 module.exports = passport;
+console.log('finish loading passport.js');

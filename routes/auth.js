@@ -1,5 +1,5 @@
 // auth.js
-console.log('auth.js');
+console.log('loading auth.js');
 
 const express = require('express');
 const passport = require('passport');
@@ -19,7 +19,7 @@ router.get('/login',
     }),
     (req, res) => {
         //console.log('router.get.login03');
-        res.redirect('https://expresso.api.theaccidentallifestyle.net');
+        res.redirect('http://localhost:3000');
     }
 );
 
@@ -39,7 +39,7 @@ router.get('/callback',
             };
             req.session.jwt = jwt.sign(userReturnObject, process.env.JWT_SECRET_KEY);
             //console.log('/callback req.session.jwt:', req.session.jwt);
-            res.redirect('https://expresso.api.theaccidentallifestyle.net');
+            res.redirect('http://localhost:3000');
         })(req, res, next);
         //In this example, passport.authenticate is returning a route function, hence the (req, res);
     
@@ -50,7 +50,7 @@ router.get('/logout',
     (req, res) => {
         //console.log('/logout req.session.jwt:', req.session.jwt);
         req.session = null;
-        const homeURL = encodeURIComponent('https://expresso.api.theaccidentallifestyle.net/');
+        const homeURL = encodeURIComponent('http://localhost:3000');
         res.redirect(
             `https://${process.env.AUTH0_DOMAIN}/v2/logout?returnTo=${homeURL}&client_id=${process.env.AUTH0_CLIENT_ID}`
         );
@@ -86,3 +86,4 @@ router.get('/current-session', (req, res) => {
 );
 
 module.exports = router;
+console.log('finish loading auth.js');
